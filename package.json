@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "eslint --ext .ts,.tsx,.js ./src",
     "test": "vitest",
+    "coverage": "vitest run --coverage",
     "prepare": "husky install"
   },
   "keywords": [],

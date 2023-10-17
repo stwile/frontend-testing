@@ -8,7 +8,7 @@ describe('四則演算', () => {
       expect(add(1, 1)).toBe(2);
     });
 
-    it('add: 1 + 2 は 3', () => {
+    it('1 + 2 は 3', () => {
       expect(add(1, 2)).toBe(3);
     });
 

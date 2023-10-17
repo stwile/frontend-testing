@@ -11,9 +11,12 @@
     "**/.{idea,git,cache,output,temp}/**",
     "**/ignored.test.ts"
   ],
-  "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  },
   "vitest.commandLine": "pnpm test --",
-  "vitest.enable": true
+  "vitest.enable": true,
+  "path-autocomplete.pathMappings": {
+    "~": "${folder}/src"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

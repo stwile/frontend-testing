@@ -1,6 +1,6 @@
 import { it, expect, describe } from 'vitest';
 
-import { add } from './calculation';
+import { add, sub } from './calculation';
 
 describe('四則演算', () => {
   describe('add', () => {
@@ -17,6 +17,23 @@ describe('四則演算', () => {
     });
     it(`合計の上限は、'100' である`, () => {
       expect(add(70, 80)).toBe(100);
+    });
+  });
+
+  describe('sub', () => {
+    it('1 - 1 は 0', () => {
+      expect(sub(1, 1)).toBe(0);
+    });
+
+    it('2 - 1 は 1', () => {
+      expect(sub(2, 1)).toBe(1);
+    });
+
+    it('返り値は、第一引数と第二引数の「差」である', () => {
+      expect(sub(51, 50)).toBe(1);
+    });
+    it(`合計の上限は、'0' である`, () => {
+      expect(sub(70, 80)).toBe(0);
     });
   });
 });

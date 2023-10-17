@@ -7,4 +7,13 @@ const add = (a: number, b: number): number => {
   return sum;
 };
 
-export { add };
+const sub = (a: number, b: number): number => {
+  const sum = a - b;
+  if (sum < 0) {
+    return 0;
+  }
+
+  return sum;
+};
+
+export { add, sub };

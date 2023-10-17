@@ -1,6 +1,6 @@
 import { it, expect, describe } from 'vitest';
 
-import { add } from './add';
+import { add } from './calculation';
 
 describe('add', () => {
   it('1 + 1 は 2', () => {

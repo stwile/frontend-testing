@@ -30,3 +30,13 @@ it('データ取得成功時：ユーザ名がない場合', async () => {
   });
   await expect(getGreet()).resolves.toBe('Hello, anonymous user!');
 });
+
+it('データ取得成功時：ユーザ名がある場合', async () => {
+  vi.spyOn(Fetcher, 'getMyProfile').mockResolvedValueOnce({
+    id: 'xxxxxxxx-123456',
+    email: 'taroyamada@myapi.testing.com',
+    age: 30,
+    name: 'taroyamada',
+  });
+  await expect(getGreet()).resolves.toBe('Hello, taroyamada!');
+});

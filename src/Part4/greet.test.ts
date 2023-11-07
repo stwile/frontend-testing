@@ -40,3 +40,31 @@ it('データ取得成功時：ユーザ名がある場合', async () => {
   });
   await expect(getGreet()).resolves.toBe('Hello, taroyamada!');
 });
+
+it('データ取得失敗時', async () => {
+  const httpError: { err: { message: string } } = {
+    err: {
+      message: 'internal server error',
+    },
+  };
+  vi.spyOn(Fetcher, 'getMyProfile').mockRejectedValueOnce(httpError);
+  await expect(getGreet()).rejects.toMatchObject({
+    err: {
+      message: 'internal server error',
+    },
+  });
+});
+
+it('データ取得失敗時、エラー相当のデータが例外としてスローされる', async () => {
+  const httpError: { err: { message: string } } = {
+    err: {
+      message: 'internal server error',
+    },
+  };
+  vi.spyOn(Fetcher, 'getMyProfile').mockRejectedValueOnce(httpError);
+  try {
+    await getGreet();
+  } catch (err) {
+    expect(err).toMatchObject(httpError);
+  }
+});

@@ -1,7 +1,13 @@
 import { expect, vi } from 'vitest';
 
 import * as Fetcher from './fetcher';
-import { getGreet, greet, sayGoodBye } from './greet';
+import { getMyArticlesData } from './fixtures';
+import {
+  getGreet,
+  getMyArticleLinksByCategory,
+  greet,
+  sayGoodBye,
+} from './greet';
 
 it('挨拶を返す（本来の実装通り）', () => {
   expect(greet('Taro')).toBe('Hello! Taro.');
@@ -67,4 +73,24 @@ it('データ取得失敗時、エラー相当のデータが例外としてス�
   } catch (err) {
     expect(err).toMatchObject(httpError);
   }
+});
+
+const mockGetMyArticles = (status = 200) => {
+  if (status > 299) {
+    return vi.spyOn(Fetcher, 'getMyArticle').mockRejectedValueOnce({
+      err: {
+        message: 'internal server error',
+      },
+    });
+  }
+
+  return vi
+    .spyOn(Fetcher, 'getMyArticle')
+    .mockResolvedValueOnce(getMyArticlesData);
+};
+
+it('指定したタグを持つ記事が一件もない場合', async () => {
+  mockGetMyArticles();
+  const data = await getMyArticleLinksByCategory('playwright');
+  expect(data).toEqual([]);
 });

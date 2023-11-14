@@ -20,7 +20,9 @@ const fetcher = <T>(endpoint: string): Promise<T> => {
   return result;
 };
 
+const HOST = 'https://myapi.testing.com';
+
 const getMyProfile = (): Promise<Profile> =>
-  fetcher<Profile>('https://myapi.testing.com/my/profile');
+  fetcher<Profile>(`${HOST}/profile`);
 
 export { getMyProfile };

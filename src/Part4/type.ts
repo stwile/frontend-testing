@@ -5,4 +5,16 @@ type Profile = {
   email: string;
 };
 
-export { type Profile };
+type Article = {
+  id: string;
+  createdAt: string;
+  tags: string[];
+  title: string;
+  body: string;
+};
+
+type Articles = {
+  articles: Article[];
+};
+
+export { type Profile, type Articles };

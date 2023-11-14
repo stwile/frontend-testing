@@ -1,4 +1,4 @@
-import { getMyProfile } from './fetcher';
+import { getMyArticle, getMyProfile } from './fetcher';
 
 const greet = (name: string): string => `Hello! ${name}.`;
 
@@ -15,4 +15,26 @@ const getGreet = async (): Promise<`Hello, ${string}!`> => {
   return `Hello, ${data.name}!`;
 };
 
-export { greet, sayGoodBye, getGreet };
+const getMyArticleLinksByCategory = async (
+  category: string,
+): Promise<{ title: string; link: string }[]> => {
+  // データを取得する関数(Web APIクライアント)
+  const data = await getMyArticle();
+
+  // 取得したデータのうち、指定したタグが含まれる記事のに絞り込む
+  const articles = data.articles.filter((article) =>
+    article.tags.includes(category),
+  );
+
+  if (!articles.length) {
+    // 該当記事がない場合は空配列を返す
+    return [];
+  }
+
+  return articles.map((article) => ({
+    title: article.title,
+    link: `/articles/${article.id}`,
+  }));
+};
+
+export { greet, sayGoodBye, getGreet, getMyArticleLinksByCategory };

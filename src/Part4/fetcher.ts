@@ -1,9 +1,4 @@
-type Profile = {
-  id: string;
-  name?: string;
-  age: number;
-  email: string;
-};
+import type { Profile } from './type';
 
 const fetcher = <T>(endpoint: string): Promise<T> => {
   const result = fetch(endpoint)

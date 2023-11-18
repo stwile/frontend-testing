@@ -148,3 +148,13 @@ it('モック関数は関数の中でも実行できる', () => {
   greetFn();
   expect(mockFn).toHaveBeenCalledTimes(1);
 });
+
+it('モック関数は実行時の引数を記録している', () => {
+  const mockFn = vi.fn();
+
+  const greetFn = (message: string): void => {
+    mockFn(message);
+  };
+  greetFn('hello');
+  expect(mockFn).toBeCalledWith('hello');
+});

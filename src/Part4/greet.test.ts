@@ -120,3 +120,14 @@ it('データ取得に失敗した場合、rejectされる', async () => {
     });
   });
 });
+
+it('モック関数は実行される', () => {
+  const mockFn = vi.fn();
+  mockFn();
+  expect(mockFn).toBeCalled();
+});
+
+it('モック関数は実行されていない', () => {
+  const mockFn = vi.fn();
+  expect(mockFn).not.toBeCalled();
+});

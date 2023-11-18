@@ -1,6 +1,7 @@
 import { getMyArticle, getMyProfile } from './fetcher';
 
-const greet = (name: string): string => `Hello! ${name}.`;
+const greet = (name: string, callback?: (message: string) => void): void =>
+  callback?.(`Hello! ${name}.`);
 
 const sayGoodBye = (name: string): string => {
   throw new Error(`未実装 ${name}`);

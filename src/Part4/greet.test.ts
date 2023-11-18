@@ -109,3 +109,14 @@ it('指定したタグを持つ記事が一件以上ある場合、リンク一�
     },
   ]);
 });
+
+it('データ取得に失敗した場合、rejectされる', async () => {
+  mockGetMyArticles(500);
+  await getMyArticleLinksByCategory('testing').catch((err) => {
+    expect(err).toMatchObject({
+      err: {
+        message: 'internal server error',
+      },
+    });
+  });
+});

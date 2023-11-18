@@ -139,3 +139,12 @@ it('モック関数は実行された回数を返す', () => {
   mockFn();
   expect(mockFn).toBeCalledTimes(2);
 });
+
+it('モック関数は関数の中でも実行できる', () => {
+  const mockFn = vi.fn();
+  const greetFn = () => {
+    mockFn();
+  };
+  greetFn();
+  expect(mockFn).toHaveBeenCalledTimes(1);
+});

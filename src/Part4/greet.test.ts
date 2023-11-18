@@ -1,4 +1,4 @@
-import { expect, vi } from 'vitest';
+import { expect, vi, it } from 'vitest';
 
 import * as Fetcher from './fetcher';
 import { getMyArticlesData } from './fixtures';
@@ -93,4 +93,19 @@ it('指定したタグを持つ記事が一件もない場合', async () => {
   mockGetMyArticles();
   const data = await getMyArticleLinksByCategory('playwright');
   expect(data).toEqual([]);
+});
+
+it('指定したタグを持つ記事が一件以上ある場合、リンク一覧が変える', async () => {
+  mockGetMyArticles();
+  const data = await getMyArticleLinksByCategory('testing');
+  expect(data).toMatchObject([
+    {
+      link: '/articles/howto-testing-with-typescript',
+      title: 'TypeScript を使ったテストの書き方',
+    },
+    {
+      link: '/articles/react-component-testing-with-jest',
+      title: 'Jest ではじめる React のコンポーネントテスト',
+    },
+  ]);
 });

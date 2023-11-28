@@ -17,4 +17,10 @@ type Articles = {
   articles: Article[];
 };
 
-export { type Profile, type Articles };
+type ArticleInput = {
+  tags: string[];
+  title: string;
+  body: string;
+};
+
+export { type Profile, type Articles, type ArticleInput, type Article };

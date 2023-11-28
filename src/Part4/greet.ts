@@ -1,4 +1,4 @@
-import { getMyArticle, getMyProfile } from './fetcher';
+import { getMyArticles, getMyProfile } from './fetcher';
 
 const greet = (name: string, callback?: (message: string) => void): void =>
   callback?.(`Hello! ${name}.`);
@@ -20,7 +20,7 @@ const getMyArticleLinksByCategory = async (
   category: string,
 ): Promise<{ title: string; link: string }[]> => {
   // データを取得する関数(Web APIクライアント)
-  const data = await getMyArticle();
+  const data = await getMyArticles();
 
   // 取得したデータのうち、指定したタグが含まれる記事のに絞り込む
   const articles = data.articles.filter((article) =>

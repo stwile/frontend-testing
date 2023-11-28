@@ -1,4 +1,4 @@
-import type { Articles, Profile } from './type';
+import type { Article, ArticleInput, Articles, Profile } from './type';
 
 const fetcher = <T>(endpoint: string): Promise<T> => {
   const result = fetch(endpoint)
@@ -23,4 +23,22 @@ const getMyProfile = (): Promise<Profile> =>
 const getMyArticles = (): Promise<Articles> =>
   fetcher<Articles>(`${HOST}/article`);
 
-export { getMyProfile, getMyArticles as getMyArticle };
+const postMyArticle = (input: ArticleInput): Promise<Article> => {
+  const result = fetch(`${HOST}/article`, {
+    method: 'POST',
+    body: JSON.stringify(input),
+  })
+    .then<Article>((res) => {
+      const data = res.json();
+      if (!res.ok) {
+        throw data;
+      }
+
+      return data;
+    })
+    .catch();
+
+  return result;
+};
+
+export { getMyProfile, getMyArticles, postMyArticle };

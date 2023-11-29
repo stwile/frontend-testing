@@ -11,7 +11,7 @@ const mockPostMyArticle = (input: ArticleInput, status = 200) => {
     message: 'internal server error',
   };
   if (status > 299) {
-    return vi.spyOn(Fetcher, 'postMyArticle').mockRejectedValueOnce(err);
+    return vi.spyOn(Fetcher, 'postMyArticle').mockRejectedValueOnce({ err });
   }
   try {
     checkLength(input.title);
@@ -22,7 +22,7 @@ const mockPostMyArticle = (input: ArticleInput, status = 200) => {
       ...input,
     });
   } catch (error) {
-    return vi.spyOn(Fetcher, 'postMyArticle').mockRejectedValueOnce(err);
+    return vi.spyOn(Fetcher, 'postMyArticle').mockRejectedValueOnce({ err });
   }
 };
 
@@ -44,4 +44,19 @@ it('バリデーションに成功した場合、成功のレスポンスが返�
   expect(data).toMatchObject(expect.objectContaining(input));
   // モック関数が呼び出されたかを検証
   expect(mock).toHaveBeenCalled();
+});
+
+it('バリデーションに失敗した場合、rejectされる', async () => {
+  expect.assertions(2);
+  // バリデーションに通過しない入力値を用意
+  const input = inputFactory({ title: '', body: '' });
+  // 入力値を含んだ成功レスポンスが返るよう、モックを施す
+  const mock = mockPostMyArticle(input);
+  // バリデーションに通過せず reject されるかを検証
+  await Fetcher.postMyArticle(input).catch((err) => {
+    // エラーオブジェクトをもって reject されたことを検証
+    expect(err).toMatchObject({ err: { message: 'internal server error' } });
+    // モック関数が呼び出されたかを検証
+    expect(mock).toHaveBeenCalled();
+  });
 });

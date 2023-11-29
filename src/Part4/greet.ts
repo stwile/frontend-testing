@@ -2,8 +2,16 @@ import { getMyArticles, getMyProfile } from './fetcher';
 
 import type { Greet } from './type';
 
-const greet = (name: string, callback?: (message: string) => void): void =>
-  callback?.(`Hello! ${name}.`);
+const greet = (
+  name: string,
+  callback?: (message: string) => string,
+): string => {
+  if (callback) {
+    return callback(`Hello! ${name}.`);
+  }
+
+  return `Hello! ${name}.`;
+};
 
 const sayGoodBye = (name: string): string => {
   throw new Error(`未実装 ${name}`);

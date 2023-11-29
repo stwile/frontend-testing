@@ -1,5 +1,7 @@
 import { getMyArticles, getMyProfile } from './fetcher';
 
+import type { Greet } from './type';
+
 const greet = (name: string, callback?: (message: string) => void): void =>
   callback?.(`Hello! ${name}.`);
 
@@ -38,4 +40,22 @@ const getMyArticleLinksByCategory = async (
   }));
 };
 
-export { greet, sayGoodBye, getGreet, getMyArticleLinksByCategory };
+const greetByTime = (): Greet => {
+  const hour = new Date().getHours();
+  if (hour < 12) {
+    return 'おはよう';
+  }
+  if (hour < 18) {
+    return 'こんにちは';
+  }
+
+  return 'こんばんは';
+};
+
+export {
+  greet,
+  sayGoodBye,
+  getGreet,
+  getMyArticleLinksByCategory,
+  greetByTime,
+};

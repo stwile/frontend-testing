@@ -23,4 +23,12 @@ type ArticleInput = {
   body: string;
 };
 
-export { type Profile, type Articles, type ArticleInput, type Article };
+type Greet = 'おはよう' | 'こんにちは' | 'こんばんは';
+
+export {
+  type Profile,
+  type Articles,
+  type ArticleInput,
+  type Article,
+  type Greet,
+};

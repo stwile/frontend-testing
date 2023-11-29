@@ -6,6 +6,7 @@ import {
   getGreet,
   getMyArticleLinksByCategory,
   greet,
+  greetByTime,
   sayGoodBye,
 } from './greet';
 
@@ -164,4 +165,27 @@ it('mオック関数はテスト対象の引数として利用できる', () => 
 
   greet('jiro', mockFn);
   expect(mockFn).toBeCalledWith('Hello! jiro.');
+});
+
+describe('greetByTime', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('指定時間待つと、経過時間をもってresolveされる', () => {
+    vi.setSystemTime(new Date(2022, 7, 20, 8, 0, 0));
+    expect(greetByTime()).toBe('おはよう');
+  });
+  it('指定時間待つと、経過時間をもってresolveされる', () => {
+    vi.setSystemTime(new Date(2022, 7, 20, 14, 0, 0));
+    expect(greetByTime()).toBe('こんにちは');
+  });
+  it('指定時間待つと、経過時間をもってresolveされる', () => {
+    vi.setSystemTime(new Date(2022, 7, 20, 21, 0, 0));
+    expect(greetByTime()).toBe('こんばんは');
+  });
 });

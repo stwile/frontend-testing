@@ -25,5 +25,9 @@ export const Default: Story = {
     /** ボタンの表示 */
     const button = canvas.getByRole('button');
     await expect(button).toBeInTheDocument();
+
+    /** 見出しの表示 */
+    const heading = canvas.getByRole('heading');
+    await expect(heading).toHaveTextContent('アカウント情報');
   },
 };

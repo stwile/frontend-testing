@@ -21,5 +21,9 @@ export const Default: Story = {
       name: '利用規約の同意',
     });
     await expect(button).toBeInTheDocument();
+
+    /** チェックボックスはチェックが入っていない */
+    const checkbox = canvas.getByRole('checkbox');
+    await expect(checkbox).not.toBeChecked();
   },
 };

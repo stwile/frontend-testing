@@ -26,3 +26,19 @@ export const Default: Story = {
     await expect(within(list).getAllByRole('listitem')).toHaveLength(3);
   },
 };
+
+export const Empty: Story = {
+  args: {
+    items: [],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    /** 一覧アイテムがからの時「投稿記事がありません」が表示される */
+    const list = canvas.queryByRole('list');
+    await expect(list).not.toBeInTheDocument();
+    await expect(list).toBeNull();
+
+    await expect(canvas.getByText('投稿記事がありません')).toBeInTheDocument();
+  },
+};

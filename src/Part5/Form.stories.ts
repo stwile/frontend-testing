@@ -21,5 +21,9 @@ export const Default: Story = {
     const canvas = within(canvasElement);
     const form = canvas.getByText('taro');
     await expect(form).toBeInTheDocument();
+
+    /** ボタンの表示 */
+    const button = canvas.getByRole('button');
+    await expect(button).toBeInTheDocument();
   },
 };

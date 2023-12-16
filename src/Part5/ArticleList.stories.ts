@@ -21,11 +21,8 @@ export const Default: Story = {
     const canvas = within(canvasElement);
 
     /** itemsの数だけ一覧表示される */
-    const listItem = canvas.getAllByRole('listitem');
-    await expect(listItem).toHaveLength(3);
-
-    /** 一覧が表示される */
     const list = canvas.getByRole('list');
     await expect(list).toBeInTheDocument();
+    await expect(within(list).getAllByRole('listitem')).toHaveLength(3);
   },
 };

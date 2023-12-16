@@ -25,5 +25,12 @@ export const Input: Story = {
 
     await user.type(email, emailValue);
     await expect(canvas.getByDisplayValue(emailValue)).toBeInTheDocument();
+
+    /** パスワード入力 */
+    const password = canvas.getByPlaceholderText('8文字以上で入力');
+    const passwordValue = 'abcd1234';
+
+    await user.type(password, passwordValue);
+    await expect(canvas.getByDisplayValue(passwordValue)).toBeInTheDocument();
   },
 };

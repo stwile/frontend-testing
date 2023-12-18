@@ -1,24 +1,26 @@
-type Props = {
-  name: string;
-  onSubmit?: (event: React.FormEvent<HTMLInputElement>) => void;
-};
+import { useId, useState } from 'react';
 
-const Form = ({ name, onSubmit }: Props) => (
-  <form>
-    <input
-      type="text"
-      value={name}
-      onSubmit={(event) => {
-        event.preventDefault();
-        onSubmit?.(event);
-      }}
-    />
-    <h2>アカウント情報</h2>
-    <p>{name}</p>
-    <div>
-      <button type="submit">編集する</button>
-    </div>
-  </form>
-);
+import { Agreement } from './Agreement';
+import { InputAccount } from './InputAccount';
+
+const Form = () => {
+  const [checked, setChecked] = useState(false);
+  const headingId = useId();
+
+  return (
+    <form aria-labelledby={headingId}>
+      <h2 id={headingId}>新規アカウント登録</h2>
+      <InputAccount />
+      <Agreement
+        onChange={(event) => setChecked(event.currentTarget.checked)}
+      />
+      <div>
+        <button type="submit" disabled={!checked}>
+          サインアップ
+        </button>
+      </div>
+    </form>
+  );
+};
 
 export { Form };

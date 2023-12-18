@@ -1,4 +1,4 @@
-import { within, expect } from '@storybook/test';
+import { within, expect, userEvent } from '@storybook/test';
 
 import { Form } from './Form';
 
@@ -17,17 +17,26 @@ export const Default: Story = {
     name: 'taro',
   },
   play: async ({ canvasElement }) => {
-    /** 名前の表示 */
     const canvas = within(canvasElement);
-    const form = canvas.getByText('taro');
-    await expect(form).toBeInTheDocument();
 
-    /** ボタンの表示 */
-    const button = canvas.getByRole('button');
-    await expect(button).toBeInTheDocument();
+    /** 「サインアップ」ボタンは非活性 */
+    const button = canvas.getByRole('button', { name: 'サインアップ' });
+    await expect(button).toBeDisabled();
+  },
+};
 
-    /** 見出しの表示 */
-    const heading = canvas.getByRole('heading');
-    await expect(heading).toHaveTextContent('アカウント情報');
+export const Checked: Story = {
+  args: {
+    name: 'taro',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    /** 「利用規約の同意」チェックボックスを押下すると「サインアップ」ボタンは活性化 */
+    const checkbox = canvas.getByRole('checkbox');
+    await userEvent.click(checkbox);
+
+    const button = canvas.getByRole('button', { name: 'サインアップ' });
+    await expect(button).toBeEnabled();
   },
 };

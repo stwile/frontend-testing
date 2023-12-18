@@ -22,6 +22,10 @@ export const Default: Story = {
     /** 「サインアップ」ボタンは非活性 */
     const button = canvas.getByRole('button', { name: 'サインアップ' });
     await expect(button).toBeDisabled();
+
+    /** formのアクセシブルネームは、見出しを引用している */
+    const form = canvas.getByRole('form', { name: '新規アカウント登録' });
+    await expect(form).toBeInTheDocument();
   },
 };
 

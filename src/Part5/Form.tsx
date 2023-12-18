@@ -1,26 +1,45 @@
-import { useId, useState } from 'react';
+import { useState, type ComponentProps, type FormEvent } from 'react';
 
-import { Agreement } from './Agreement';
-import { InputAccount } from './InputAccount';
+import { ContactNumber } from './ContactNumber';
+import { DeliveryAddress } from './DeliveryAddress';
+import { PastDeliveryAddress } from './PastDeliveryAddress';
+import { RegisterDeliveryAddress } from './RegisterDeliveryAddress';
 
-const Form = () => {
-  const [checked, setChecked] = useState(false);
-  const headingId = useId();
+type AddressOption = ComponentProps<'option'> & {
+  id: string;
+};
+
+type Props = {
+  deliveryAddress?: AddressOption[];
+  onSubmit?: (event: FormEvent<HTMLElement>) => void;
+};
+
+const Form = ({ deliveryAddress, onSubmit }: Props) => {
+  const [registerNew, setRegisterNew] = useState<boolean | undefined>(
+    undefined,
+  );
 
   return (
-    <form aria-labelledby={headingId}>
-      <h2 id={headingId}>新規アカウント登録</h2>
-      <InputAccount />
-      <Agreement
-        onChange={(event) => setChecked(event.currentTarget.checked)}
-      />
-      <div>
-        <button type="submit" disabled={!checked}>
-          サインアップ
-        </button>
-      </div>
+    <form onSubmit={onSubmit}>
+      <h2>お届け先情報の入力</h2>
+      <ContactNumber />
+      {deliveryAddress?.length ? (
+        <>
+          <RegisterDeliveryAddress onChange={setRegisterNew} />
+          {registerNew ? (
+            <DeliveryAddress title="新しいお届け先" />
+          ) : (
+            <PastDeliveryAddress
+              disabled={registerNew === undefined}
+              options={deliveryAddress}
+            />
+          )}
+        </>
+      ) : (
+        <DeliveryAddress />
+      )}
     </form>
   );
 };
 
-export { Form };
+export { Form, type AddressOption };

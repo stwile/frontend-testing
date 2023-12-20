@@ -11,7 +11,7 @@ type AddressOption = ComponentProps<'option'> & {
 
 type Props = {
   deliveryAddress?: AddressOption[];
-  onSubmit?: (event: FormEvent<HTMLElement>) => void;
+  onSubmit?: (event: FormEvent<HTMLFormElement>) => void;
 };
 
 const Form = ({ deliveryAddress, onSubmit }: Props) => {
